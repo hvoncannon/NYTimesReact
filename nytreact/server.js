@@ -16,7 +16,7 @@ mongoose.connect("mongodb://localhost/nytreact");
  app.use(bodyParser.urlencoded({extended: false}));
  app.use(bodyParser.json());
  
- //routes
+//routes
 //  require("./routes/apiroutes.js")(app, Article); come look at this if not working
  app.use("/api", apiRoutes);
 

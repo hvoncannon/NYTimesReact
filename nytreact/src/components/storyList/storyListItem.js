@@ -8,5 +8,6 @@ export const StoryListItem = props => (
           <a rel="noreferrer noopener" target="_blank" href={props.url}>
             Go to Story!
           </a>
+         <br /> Save Story
   </li>
 );

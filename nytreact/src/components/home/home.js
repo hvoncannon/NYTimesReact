@@ -10,7 +10,9 @@ import { StoryList, StoryListItem } from "../storyList";
 class Home extends Component {
   state = {
     stories: [],
-    storySearch: ""
+    storySearch: "",
+    start: "",
+    end: ""
   };
 
   handleInputChange = event => {
@@ -22,8 +24,9 @@ class Home extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-    API.getArticles(this.state.storySearch)
+    API.getArticles(this.state.storySearch, this.state.start, this.state.end)
       .then(res => this.setState({ stories: res.data}))
+      .then(console.log(this.state.stories))
       .catch(err => console.log(err));
   };
 
@@ -39,22 +42,21 @@ class Home extends Component {
   </div>
   <div className="form-group">
     <label for="startYear">Start Year</label>
-    <input type="text" className="form-control" id="startYear" placeholder="Start Year" />
+    <Input name="startYear" value={this.state.start} onChange={this.handleInputChange} placeholder="Coming Soon" disabled/>
   </div>
   <div className="form-group">
     <label for="endYear">End Year</label>
-    <input type="text" className="form-control" id="endYear" placeholder="End Year" />
+    <Input name="endYear" value={this.state.end} onChange={this.handleInputChange} placeholder="Coming Soon" disabled />
   </div>
   <Button onClick={this.handleFormSubmit} type="success" className="input-lg">Submit</Button>
-  <a href="/jumbo">Click Me</a>
 </form>
   <StoryList>
                   {this.state.stories.map(story => {
                     return (
                       <StoryListItem
-                        title={story.title}
-                        date={story.date}
-                        url={story.url}
+                        title={story.headline.main}
+                        date={story.pub_date}
+                        url={story.web_url}
                       />
                     );
                   })}
